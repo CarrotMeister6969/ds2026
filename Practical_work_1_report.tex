@@ -1,0 +1,38 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2cm]{geometry}
+\usepackage{graphicx} 
+\usepackage[T5]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese, english]{babel}
+\usepackage{helvet}
+
+\renewcommand{\familydefault}{\sfdefault}
+
+\title{\textbf{Brief Report: TCP/IP File Transfer}}
+\author{Nguyễn Mai Hùng}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Overview}
+Practical work 1 which require developing a CLI-based tool to transfer files via TCP/IP. The system uses a Client-Server model where the Client streams binary data and the Server listens on port 5000 to reconstruct the file.
+
+\section{Architecture}
+\begin{itemize}
+    \item \textbf{Server:} Binds to 0.0.0.0:5000, accepts connections, performs a handshake (filename/size), and writes binary chunks to disk.
+    \item \textbf{Client:} Connects to the server, sends metadata, and streams file content.
+\end{itemize}
+
+\section{Troubleshooting}
+During testing, files were successfully sent but failed to appear in the server's directory.
+\begin{itemize}
+    \item \textbf{Issue:} The server saved files relative to the terminal's working directory, often misplacing them in the root user folder.
+    \item \textbf{Solution:} Implementation of a absolute path handling to enforce saving files in the script's exact directory.
+\end{itemize}
+
+\section{Conclusion}
+The application is now stable. The absolute path fix ensures files are saved reliably regardless of how the server script is launched.
+
+\end{document}
